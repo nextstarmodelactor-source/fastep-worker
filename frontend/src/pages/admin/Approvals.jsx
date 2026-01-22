@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../../app/api";
-import TabBarAdmin from "../../components/TabBarAdmin";
+import TabBarAdmin from "../../components/TabBarAdmin.jsx";
 
 export default function Approvals() {
   const [tab, setTab] = useState("ATTENDANCE");
