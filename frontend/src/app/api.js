@@ -1,13 +1,23 @@
-import axios from "axios";
+export const API_BASE =
+  import.meta.env.VITE_API_URL || "https://fastep-worker.onrender.com/api";
 
-const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:8080/api"
-});
+export async function apiFetch(path, options = {}) {
+  const res = await fetch(`${API_BASE}${path}`, {
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...(options.headers || {})
+    }
+  });
 
-API.interceptors.request.use((config) => {
-  const token = localStorage.getItem("token");
-  if (token) config.headers.Authorization = "Bearer " + token;
-  return config;
-});
+  const text = await res.text();
+  let data;
+  try { data = text ? JSON.parse(text) : null; } catch { data = text; }
 
-export default API;
+  if (!res.ok) {
+    throw new Error(
+      (data && data.message) ? data.message : `API Error ${res.status}`
+    );
+  }
+  return data;
+}
