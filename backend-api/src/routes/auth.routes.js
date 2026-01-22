@@ -62,3 +62,4 @@ authRouter.post("/admin/login", parseBody(adminLoginSchema), async (req, res) =>
 
   res.json({ token, admin: { id: admin._id, email: admin.email, name: admin.name } });
 });
+
