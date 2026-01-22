@@ -8,9 +8,13 @@ import { workerRouter } from "./routes/worker.routes.js";
 import { adminRouter } from "./routes/admin.routes.js";
 import { feedRouter } from "./routes/feed.routes.js";
 import { errorHandler, notFound } from "./middleware/error.js";
+import { startTimers } from "./services/timers.service.js"; // ✅ ADD
 
 async function main() {
   await connectDb();
+
+  startTimers(); // ✅ ADD (free Render plan par worker ka kaam yahi karega)
+
   const app = express();
 
   app.use(cors({ origin: ENV.CORS_ORIGIN === "*" ? true : ENV.CORS_ORIGIN }));
