@@ -22,7 +22,18 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login />} />
+
+        {/* Root Login / Auto Redirect */}
+        <Route
+          path="/"
+          element={
+            role === "WORKER"
+              ? <Navigate to="/worker" />
+              : role === "ADMIN"
+              ? <Navigate to="/admin" />
+              : <Login />
+          }
+        />
 
         {/* Worker Routes */}
         <Route
@@ -67,6 +78,9 @@ export default function App() {
           path="/admin/notifications"
           element={role === "ADMIN" ? <AdminNotifications /> : <Navigate to="/" />}
         />
+
+        {/* Fallback */}
+        <Route path="*" element={<Navigate to="/" />} />
 
       </Routes>
     </BrowserRouter>
