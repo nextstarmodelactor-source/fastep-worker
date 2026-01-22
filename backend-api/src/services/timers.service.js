@@ -1,4 +1,4 @@
-import Attendance from "../models/attendance.model.js";
+import Attendance from "../models/Attendance.js";
 
 export function startTimers() {
   console.log("⏳ Timers service started");
